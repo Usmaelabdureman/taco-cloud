@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Design Your Taco</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet" />
+  </head>
+
+  <body>
+    <div class="container">
+      <h1>Design Your Taco!</h1>
+      <img th:src="@{/images/TacoCloud.png}" />
+      <form method="POST" th:object="${taco}">
+        <div
+          class="invalid-feedback"
+          th:if="${#fields.hasErrors('ingredients')}"
+          th:errors="*{ingredients}"
+        ></div>
+        <div class="row">
+          <div class="col">
+            <h3>Designate your wrap:</h3>
+            <div class="form-check" th:each="w : ${wrap}">
+              <input
+                class="form-check-input"
+                th:field="*{ingredients}"
+                th:value="${w.id}"
+                type="checkbox"
+              />
+              <label
+                class="form-check-label"
+                th:text="${w.name}"
+                th:for="${#ids.prev('ingredients')}"
+              >
+              </label>
+            </div>
+          </div>
+          <div class="col">
+            <h3>Pick your protein:</h3>
+            <div class="form-check" th:each="p : ${protein}">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                th:field="*{ingredients}"
+                th:value="${p.id}"
+              />
+              <label
+                class="form-check-label"
+                th:text="${p.name}"
+                th:for="${#ids.prev('ingredients')}"
+              >
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Choose your cheese:</h3>
+            <div class="form-check" th:each="c : ${cheese}">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                th:field="*{ingredients}"
+                th:value="${c.id}"
+              />
+              <label
+                class="form-check-label"
+                th:text="${c.name}"
+                th:for="${#ids.prev('ingredients')}"
+              >
+              </label>
+            </div>
+          </div>
+          <div class="col">
+            <h3>Determine your veggies:</h3>
+            <div class="form-check" th:each="v : ${veggies}">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                th:field="*{ingredients}"
+                th:value="${v.id}"
+              />
+              <label
+                class="form-check-label"
+                th:text="${v.name}"
+                th:for="${#ids.prev('ingredients')}"
+              >
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <h3>Select your sauce:</h3>
+            <div class="form-check" th:each="s : ${sauce}">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                th:field="*{ingredients}"
+                th:value="${s.id}"
+              />
+              <label
+                class="form-check-label"
+                th:text="${s.name}"
+                th:for="${#ids.prev('ingredients')}"
+              >
+              </label>
+            </div>
+          </div>
+          <div class="col"></div>
+        </div>
+        <div>
+          <label for="designName" class="form-label mt-2">Name your taco</label>
+          <input
+            type="text"
+            th:class="|form-control ${#fields.hasErrors('designName')? 'is-invalid': 'is-valid'}|"
+            class="form-control w-50"
+            th:field="*{designName}"
+          />
+          <div
+            class="invalid-feedback"
+            th:if="${#fields.hasErrors('designName')}"
+            th:errors="*{designName}"
+          ></div>
+        </div>
+        <button type="submit" class="btn btn-primary mt-2">
+          Submit Your Taco
+        </button>
+      </form>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>
